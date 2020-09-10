@@ -1,40 +1,81 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.IO;
 
 namespace small_calculator
 {
-    class Calculator : ICalculator
+    public class Calculator : ICalculator
+
     {
-        public int Result { get; }
+        public int Result { get; set; }
+
         public void Reset()
         {
-            throw new NotImplementedException();
+            Result = 0;
         }
 
         public void Add(int x)
         {
-            throw new NotImplementedException();
+            if (x > 0 && x + Result < Result)
+            {
+                throw new OverflowException("Overflow");
+            }
+            else if (x < 0 && x + Result > Result)
+            {
+                throw new OverflowException("Underflow");
+            }
+            Result += x;
+
         }
 
         public void Subtract(int x)
         {
-            throw new NotImplementedException();
+            long longResult = Result;
+
+            if (longResult - x < int.MinValue)
+            {
+                throw new OverflowException("Underflow");
+            }
+            else if (longResult - x > int.MaxValue)
+            {
+                throw new OverflowException("Overflow");
+            }
+
+            Result = Result - x;
+
         }
 
         public void Multiply(int x)
         {
-            throw new NotImplementedException();
+            long longResult = Result;
+
+            if (longResult * x > int.MaxValue)
+            {
+                throw new OverflowException("Overflow");
+            }
+            else if (longResult * x < int.MinValue)
+            {
+                throw new OverflowException("Underflow");
+            }
+            Result *= x;
         }
 
         public void Divide(int x)
         {
-            throw new NotImplementedException();
+            if (x == 0 || Result == 0)
+            {
+                throw new InvalidDataException("Cant divide by 0");
+            }
+            else
+            {
+                Result /= x;
+            }
+
         }
 
         public void Modulus(int x)
         {
-            throw new NotImplementedException();
+            var m = Result % x;
+            Result = m;
         }
     }
 }

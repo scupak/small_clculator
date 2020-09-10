@@ -4,10 +4,10 @@ using System.Text;
 
 namespace small_calculator
 {
-    interface ICalculator
+   public interface ICalculator
     {
        
-            int Result { get; } // property keeping the current result of the calculator
+            int Result { get; set; } // property keeping the current result of the calculator
             void Reset(); // resets the current result of the calculator
             void Add(int x); // adds x to the current result
             void Subtract(int x); // subtracts x from the current result
